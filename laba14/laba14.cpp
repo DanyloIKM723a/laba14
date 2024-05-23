@@ -1,5 +1,4 @@
-﻿#include <iostream>
-#include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -16,7 +15,7 @@ bool isPalindrome(int num) {
     return originalNum == reversedNum;
 }
 
-void fillArrayWithPalindromes(vector<int>& arr, int size) {
+void fillArrayWithPalindromes(int arr[], int size) {
     int num = 1;
     for (int i = 0; i < size; ++i) {
         while (!isPalindrome(num)) {
@@ -27,9 +26,9 @@ void fillArrayWithPalindromes(vector<int>& arr, int size) {
     }
 }
 
-int interpolationSearch(const vector<int>& arr, int key) {
+int interpolationSearch(const int arr[], int size, int key) {
     int low = 0;
-    int high = arr.size() - 1;
+    int high = size - 1;
 
     while (low <= high && key >= arr[low] && key <= arr[high]) {
         int pos = low + ((key - arr[low]) * (high - low)) / (arr[high] - arr[low]);
@@ -38,8 +37,7 @@ int interpolationSearch(const vector<int>& arr, int key) {
         }
         if (arr[pos] < key) {
             low = pos + 1;
-        }
-        else {
+        } else {
             high = pos - 1;
         }
     }
@@ -49,18 +47,17 @@ int interpolationSearch(const vector<int>& arr, int key) {
 
 int main() {
     const int size = 25;
-    vector<int> arr(size);
+    int arr[size];
     fillArrayWithPalindromes(arr, size);
 
     int key;
     cout << "Enter the number to search: ";
     cin >> key;
 
-    int index = interpolationSearch(arr, key);
+    int index = interpolationSearch(arr, size, key);
     if (index != -1) {
         cout << "Number " << key << " found at index " << index << endl;
-    }
-    else {
+    } else {
         cout << "Number " << key << " not found in the array" << endl;
     }
 
